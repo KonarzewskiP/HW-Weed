@@ -19,11 +19,7 @@ public class Main {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         System.out.println("\n>>>>>   Data for states with HIGH MEDIUM and LOW quality:    <<<<<\n");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-//        Map<String ,StateWithAvgPrices> statesWithAvgPrices = weedStatisticsHighMedLowQuality.generateAveragePriceList();
-//        for (Map.Entry<String, StateWithAvgPrices> st :statesWithAvgPrices.entrySet()) {
-//            System.out.println(st.getKey());
-//            System.out.println("H:"+st.getValue().getAvgHigh()+"/M:"+st.getValue().getAvgMedium()+"/L:"+st.getValue().getAvgHigh());
-//        }
+
 
 //        System.out.println("All prices");
 //        List<StateUSA> allBestPrice = weedStatisticsHighMedLowQuality.showBestPriceOfWeed(5);
@@ -122,7 +118,7 @@ public class Main {
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //        System.out.println("The best prices of low quality weed between all states:");
-//        List<StateUSA> lowBestPrice = weedStatisticsLowQuality.showBestPriceOfWeed(150);
+//        List<StateUSA> lowBestPrice = weedStatisticsLowQuality.showBestPriceOfWeed(5);
 //        for (StateUSA state : lowBestPrice) {
 //            System.out.println(state.getStateName()+"\n\t"+state.getLowQuality()+" - "+state.getDate());
 //        }

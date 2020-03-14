@@ -6,10 +6,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class sortHighPriceByDate implements StatisticsSortedByDate {
+public class SortHighMediumLowPriceByDate implements StatisticsSortedByDate {
     private final List<StateUSA> statesUSA;
 
-    public sortHighPriceByDate(List<StateUSA> statesUSA) {
+    public SortHighMediumLowPriceByDate(List<StateUSA> statesUSA) {
         this.statesUSA = statesUSA;
     }
 

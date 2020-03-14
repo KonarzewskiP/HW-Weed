@@ -17,7 +17,7 @@ import java.util.*;
 @Getter
 @ToString
 public abstract class WeedStatistics {
-//    public  final List<StateUSA> statesUSA;
+
     PriceListAndBestAvgPriceInterface priceListAndBestAvgPriceInterface;
     BestPriceInterface bestPriceInterface;
     BestPriceForEachStateInterface bestPriceForEachStateInterface;
@@ -25,9 +25,6 @@ public abstract class WeedStatistics {
     BestPriceByMonthBetweenAllStatesInterface bestPriceByMonthBetweenAllStatesInterface;
     StatisticsSortedByDate statisticsSortedByDate;
 
-//    public WeedStatistics(List<StateUSA> states) {
-//        this.statesUSA = states;
-//    }
 
     public Map<String, StateWithAvgPrices> generateAveragePriceList() {
         return priceListAndBestAvgPriceInterface.statesWithAveragePricesList();
@@ -55,7 +52,6 @@ public abstract class WeedStatistics {
     public List<StateUSA> sortedByDate(){
         return statisticsSortedByDate.sortedByDate();
     }
-
 }
 
 //        1. Sprawdź, który stan ma ogółem najlepsze średnie ceny trawy. (ignoruj wpisy, dla których brakuje danych)

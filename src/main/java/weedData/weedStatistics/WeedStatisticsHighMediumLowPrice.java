@@ -1,13 +1,19 @@
 package weedData.weedStatistics;
 
 import weedData.StateUSA;
-import weedData.priceListGenerator.AverageAllPriceList;
+import weedData.bestPriceByYear.DoNotExecuteByYear;
+import weedData.bestPriceWeedBetweenAllStates.DoNotExecuteAllStates;
+import weedData.bestPriceWeedForEachState.DoNotExecuteForEachState;
+import weedData.priceListAndBestAveragePriceGenerator.AverageAllPriceList;
 
 import java.util.List;
 
 public class WeedStatisticsHighMediumLowPrice extends WeedStatistics {
 
     public WeedStatisticsHighMediumLowPrice(List<StateUSA> states){
-        priceListGeneratorInterface = new AverageAllPriceList(states);
+        priceListAndBestAvgPriceInterface = new AverageAllPriceList(states);
+        bestPriceInterface = new DoNotExecuteAllStates();
+        bestPriceForEachStateInterface = new DoNotExecuteForEachState();
+        bestPriceByYearBetweenAllStatestInterface = new DoNotExecuteByYear();
     }
 }

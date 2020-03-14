@@ -2,28 +2,52 @@ package weedData.weedStatistics;
 
 import lombok.Getter;
 import lombok.ToString;
-import weedData.priceListGenerator.PriceListGeneratorInterface;
 import weedData.StateUSA;
+import weedData.bestPriceByYear.BestPriceByYearBetweenAllStatestInterface;
+import weedData.bestPriceWeedBetweenAllStates.BestPriceInterface;
+import weedData.bestPriceWeedForEachState.BestPriceForEachStateInterface;
+import weedData.bestPricebyMonth.BestPriceByMonthBetweenAllStatesInterface;
+import weedData.priceListAndBestAveragePriceGenerator.PriceListAndBestAvgPriceInterface;
 import weedData.StateWithAvgPrices;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Getter
 @ToString
 public abstract class WeedStatistics {
-//    private final List<StateUSA> statesUSA;
-    PriceListGeneratorInterface priceListGeneratorInterface;
+//    public  final List<StateUSA> statesUSA;
+    PriceListAndBestAvgPriceInterface priceListAndBestAvgPriceInterface;
+    BestPriceInterface bestPriceInterface;
+    BestPriceForEachStateInterface bestPriceForEachStateInterface;
+    BestPriceByYearBetweenAllStatestInterface bestPriceByYearBetweenAllStatestInterface;
+    BestPriceByMonthBetweenAllStatesInterface bestPriceByMonthBetweenAllStatesInterface;
 
 //    public WeedStatistics(List<StateUSA> states) {
 //        this.statesUSA = states;
 //    }
 
-    public Map<String, StateWithAvgPrices> generatePriceList() {
-        return priceListGeneratorInterface.statesWithPricesList();
+    public Map<String, StateWithAvgPrices> generateAveragePriceList() {
+        return priceListAndBestAvgPriceInterface.statesWithAveragePricesList();
     }
 
-    public List<StateWithAvgPrices> sortedNumberStatesWithBestHighQualityPrice(int number) {
-        return priceListGeneratorInterface.sortedNumberStatesWithBestPrice(number);
+    public List<StateWithAvgPrices> showBestAveragePrice(int number) {
+        return priceListAndBestAvgPriceInterface.sortedNumberStatesWithBestPrice(number);
+    }
+    public List<StateUSA> showBestPriceOfWeed(int number){
+        return bestPriceInterface.showBestPriceWeed(number);
+    }
+
+    public Map<String, Optional<StateUSA>> historicallyBestPriceForEachState(){
+        return bestPriceForEachStateInterface.bestPriceForEachState();
+    }
+
+    public Map<Integer, Optional<StateUSA>> bestPriceBetweenAllStatesByYear(){
+        return  bestPriceByYearBetweenAllStatestInterface.bestPriceByYear();
+    }
+
+    public Map<Integer, Map<Integer, Optional<StateUSA>>> bestPriceBetweenAllStatesByMonth(){
+        return bestPriceByMonthBetweenAllStatesInterface.bestPriceByMonth();
     }
 
 }

@@ -1,4 +1,4 @@
-package weedData.priceListGenerator;
+package weedData.priceListAndBestAveragePriceGenerator;
 
 import weedData.StateUSA;
 import weedData.StateWithAvgPrices;
@@ -6,21 +6,20 @@ import weedData.States;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class AverageMediumPriceList implements PriceListGeneratorInterface {
-    private final List<StateUSA> statesUSA;
+public class AverageMediumPriceList implements PriceListAndBestAvgPriceInterface {
 
+    private final List<StateUSA> statesUSA;
     public AverageMediumPriceList(List<StateUSA> statesUSA) {
         this.statesUSA = statesUSA;
     }
 
     @Override
-    public Map<String, StateWithAvgPrices> statesWithPricesList() {
+    public Map<String, StateWithAvgPrices> statesWithAveragePricesList() {
         Map<String, StateWithAvgPrices> state = new HashMap<>();
         for (StateUSA s : statesUSA) {
             StateWithAvgPrices stateWithAvgPrices = new StateWithAvgPrices();
@@ -37,19 +36,14 @@ public class AverageMediumPriceList implements PriceListGeneratorInterface {
                 .collect(Collectors.averagingDouble(value -> value.getMediumQuality().doubleValue()));
         return new BigDecimal(number).setScale(2, RoundingMode.HALF_UP);
     }
-
     @Override
     public List<StateWithAvgPrices> sortedNumberStatesWithBestPrice(int number){
-        return statesWithPricesList()
+        return statesWithAveragePricesList()
                 .values()
                 .stream()
-                .sorted(new Comparator<StateWithAvgPrices>() {
-                    @Override
-                    public int compare(StateWithAvgPrices o1, StateWithAvgPrices o2) {
-                        return o1.getAvgMedium().compareTo(o2.getAvgMedium());
-                    }
-                })
+                .sorted((o1, o2) -> o1.getAvgMedium().compareTo(o2.getAvgMedium()))
                 .limit(number)
                 .collect(Collectors.toList());
     }
+
 }

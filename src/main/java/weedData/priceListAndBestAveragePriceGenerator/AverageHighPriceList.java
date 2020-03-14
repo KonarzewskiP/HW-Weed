@@ -1,4 +1,4 @@
-package weedData.priceListGenerator;
+package weedData.priceListAndBestAveragePriceGenerator;
 
 import weedData.StateUSA;
 import weedData.StateWithAvgPrices;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class AverageHighPriceList implements PriceListGeneratorInterface {
+public class AverageHighPriceList implements PriceListAndBestAvgPriceInterface {
     private final List<StateUSA> statesUSA;
 
     public AverageHighPriceList(List<StateUSA> statesUSA) {
@@ -20,7 +20,7 @@ public class AverageHighPriceList implements PriceListGeneratorInterface {
     }
 
     @Override
-    public Map<String, StateWithAvgPrices> statesWithPricesList() {
+    public Map<String, StateWithAvgPrices> statesWithAveragePricesList() {
         Map<String, StateWithAvgPrices> state = new HashMap<>();
         for (StateUSA s : statesUSA) {
             StateWithAvgPrices stateWithAvgPrices = new StateWithAvgPrices();
@@ -41,7 +41,7 @@ public class AverageHighPriceList implements PriceListGeneratorInterface {
 
     @Override
     public List<StateWithAvgPrices> sortedNumberStatesWithBestPrice(int number){
-        return statesWithPricesList()
+        return statesWithAveragePricesList()
                 .values()
                 .stream()
                 .sorted(new Comparator<StateWithAvgPrices>() {

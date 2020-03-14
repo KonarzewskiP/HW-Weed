@@ -1,12 +1,21 @@
 package weedData.weedStatistics;
 
 import weedData.StateUSA;
-import weedData.priceListGenerator.AverageHighPriceList;
+import weedData.bestPriceByYear.BestHighPriceByYear;
+import weedData.bestPriceWeedBetweenAllStates.BestHighPrice;
+import weedData.bestPriceWeedForEachState.BestHighPriceEachState;
+import weedData.bestPricebyMonth.BestHighPriceByMonth;
+import weedData.priceListAndBestAveragePriceGenerator.AverageHighPriceList;
 
 import java.util.List;
 
 public class WeedStatisticsHighPrice extends WeedStatistics{
     public WeedStatisticsHighPrice(List<StateUSA> states) {
-        priceListGeneratorInterface = new AverageHighPriceList(states);
+        priceListAndBestAvgPriceInterface = new AverageHighPriceList(states);
+        bestPriceInterface = new BestHighPrice(states);
+        bestPriceForEachStateInterface = new BestHighPriceEachState(states);
+        bestPriceByYearBetweenAllStatestInterface = new BestHighPriceByYear(states);
+        bestPriceByMonthBetweenAllStatesInterface = new BestHighPriceByMonth(states);
+
     }
 }

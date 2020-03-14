@@ -6,6 +6,7 @@ import weedData.weedStatistics.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,30 +16,135 @@ public class Main {
         WeedStatistics weedStatisticsHighQuality = new WeedStatisticsHighPrice(dataImporter.readStatesHighQuality());
         WeedStatistics weedStatisticsMedQuality = new WeedStatisticsMediumPrice(dataImporter.readStatesMediumQuality());
         WeedStatistics weedStatisticsLowQuality = new WeedStatisticsLowPrice(dataImporter.readStatesLowQuality());
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println("\n>>>>>   Data for states with HIGH MEDIUM and LOW quality:    <<<<<\n");
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+//        Map<String ,StateWithAvgPrices> statesWithAvgPrices = weedStatisticsHighMedLowQuality.generateAveragePriceList();
+//        for (Map.Entry<String, StateWithAvgPrices> st :statesWithAvgPrices.entrySet()) {
+//            System.out.println(st.getKey());
+//            System.out.println("H:"+st.getValue().getAvgHigh()+"/M:"+st.getValue().getAvgMedium()+"/L:"+st.getValue().getAvgHigh());
+//        }
 
-        System.out.println("\n>>>>>   Data states with HIGH MEDIUM and LOW quality:    <<<<<\n");
-        Map<String ,StateWithAvgPrices> statesWithAvgPrices = weedStatisticsHighMedLowQuality.generatePriceList();
-        for (Map.Entry<String, StateWithAvgPrices> st :statesWithAvgPrices.entrySet()) {
-            System.out.println(st.getKey());
-            System.out.println("H:"+st.getValue().getAvgHigh()+"/M:"+st.getValue().getAvgMedium()+"/L:"+st.getValue().getAvgHigh());
+        System.out.println("All prices");
+        List<StateUSA> allBestPrice = weedStatisticsHighMedLowQuality.showBestPriceOfWeed(5);
+        for (StateUSA state : allBestPrice) {
+            System.out.println(state.getStateName()+"\n\t"+state.getHighQuality()+" - "+state.getDate());
         }
-//
+        System.out.println("\nHistorically best for each state:");
+        Map<String, Optional<StateUSA>> allBestEachState = weedStatisticsHighMedLowQuality.historicallyBestPriceForEachState();
+        for (Map.Entry<String,Optional<StateUSA>> state : allBestEachState.entrySet()){
+            System.out.println(state.getKey());
+            System.out.println("\t"+state.getValue().get().getHighQuality()+" - "+state.getValue().get().getDate());
+        }
+        System.out.println("\nThe best prices weed between all states by year:");
+        Map<Integer, Optional<StateUSA>> allBestByYear = weedStatisticsHighMedLowQuality.bestPriceBetweenAllStatesByYear();
+        for (Map.Entry<Integer,Optional<StateUSA>> state : allBestByYear.entrySet()){
+            System.out.println(state.getKey());
+            System.out.println("\t"+state.getValue().get().getStateName()+" "+state.getValue().get().getMediumQuality()+" - "+state.getValue().get().getDate());
+        }
+
 //        System.out.println("\nState with the lowest average weed price of all time:");
-//        StateWithAvgPrices lowestAveragePriceOfAllTime = weedStatisticsHighMedLowQuality.stateWithTheLowestAverageWeedPrice();
-//        System.out.println(lowestAveragePriceOfAllTime.getName()+"\n\t"+lowestAveragePriceOfAllTime.getAvgHigh());
+//        List<StateWithAvgPrices> lowestAveragePriceOfAllTime = weedStatisticsHighMedLowQuality.showBestAveragePrice(5);
+//        for (StateWithAvgPrices state : lowestAveragePriceOfAllTime) {
+//            System.out.println(state.getName()+"\n\t"+state.getAvgHigh());
+//        }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println("\n>>>>>   Data for states with HIGH quality:  <<<<<\n");
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        System.out.println("\n>>>>>   Data states with HIGH  quality:  <<<<<\n");
-        System.out.println("(n) States with the best price of high quality weed:");
-        List<StateWithAvgPrices> statesWithBestHighQualityPrice = weedStatisticsHighQuality.sortedNumberStatesWithBestHighQualityPrice(5);
-        for (StateWithAvgPrices state : statesWithBestHighQualityPrice) {
-            System.out.println(state.getName()+"\n\t"+state.getAvgHigh());
+//        System.out.println("The best prices of high quality weed between all states:");
+//        List<StateUSA> highBestPrice = weedStatisticsHighQuality.showBestPriceOfWeed(5);
+//        for (StateUSA state : highBestPrice) {
+//            System.out.println(state.getStateName()+"\n\t"+state.getHighQuality()+" - "+state.getDate());
+//        }
+//        System.out.println("\nHistorically best high quality price for each state:");
+//        Map<String, Optional<StateUSA>> highBestEachState = weedStatisticsHighQuality.historicallyBestPriceForEachState();
+//        for (Map.Entry<String,Optional<StateUSA>> state : highBestEachState.entrySet()){
+//            System.out.println(state.getKey());
+//            System.out.println("\t"+state.getValue().get().getHighQuality()+" - "+state.getValue().get().getDate());
+//        }
+//        System.out.println("\nThe best prices of high quality weed between all states by year:");
+//        Map<Integer, Optional<StateUSA>> highBestByYear = weedStatisticsHighQuality.bestPriceBetweenAllStatesByYear();
+//        for (Map.Entry<Integer,Optional<StateUSA>> state : highBestByYear.entrySet()){
+//            System.out.println(state.getKey());
+//            System.out.println("\t"+state.getValue().get().getStateName()+" "+state.getValue().get().getHighQuality()+" - "+state.getValue().get().getDate());
+//        }
+        System.out.println("\nThe best prices of high quality weed between all states by a month:");
+        Map<Integer, Map<Integer, Optional<StateUSA>>> highBestByMonth = weedStatisticsHighQuality.bestPriceBetweenAllStatesByMonth();
+        for (Map.Entry<Integer, Map<Integer, Optional<StateUSA>>> state : highBestByMonth.entrySet()) {
+            System.out.println(state.getKey());
+            for (Map.Entry<Integer, Optional<StateUSA>> stateDate : state.getValue().entrySet()) {
+                System.out.println("\t" +stateDate.getKey());
+                System.out.println("\t\t" + stateDate.getValue().get().getStateName() + " " +
+                        stateDate.getValue().get().getHighQuality() + " - " + stateDate.getValue().get().getDate());
+            }
+
         }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println("\n>>>>>   Data for states with MEDIUM quality:    <<<<<\n");
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        System.out.println("\n>>>>>   Data states with MEDIUM  quality:    <<<<<\n");
+//        System.out.println("The best prices of medium quality weed between all states:");
+//        List<StateUSA> mediumBestPrice = weedStatisticsMedQuality.showBestPriceOfWeed(5);
+//        for (StateUSA state : mediumBestPrice) {
+//            System.out.println(state.getStateName()+"\n\t"+state.getMediumQuality()+" - "+state.getDate());
+//        }
+//        System.out.println("\nHistorically best medium quality price for each state:");
+//        Map<String, Optional<StateUSA>> mediumBestEachState = weedStatisticsMedQuality.historicallyBestPriceForEachState();
+//        for (Map.Entry<String,Optional<StateUSA>> state : mediumBestEachState.entrySet()){
+//            System.out.println(state.getKey());
+//            System.out.println("\t"+state.getValue().get().getMediumQuality()+" - "+state.getValue().get().getDate());
+//        }
+//        System.out.println("\nThe best prices of medium quality weed between all states by year:");
+//        Map<Integer, Optional<StateUSA>> mediumBestByYear = weedStatisticsMedQuality.bestPriceBetweenAllStatesByYear();
+//        for (Map.Entry<Integer,Optional<StateUSA>> state : mediumBestByYear.entrySet()){
+//            System.out.println(state.getKey());
+//            System.out.println("\t"+state.getValue().get().getStateName()+" "+state.getValue().get().getMediumQuality()+" - "+state.getValue().get().getDate());
+//        }
+        System.out.println("\nThe best prices of medium quality weed between all states by a month:");
+        Map<Integer, Map<Integer, Optional<StateUSA>>> mediumBestByMonth = weedStatisticsMedQuality.bestPriceBetweenAllStatesByMonth();
+        for (Map.Entry<Integer, Map<Integer, Optional<StateUSA>>> state : mediumBestByMonth.entrySet()) {
+            System.out.println(state.getKey());
+            for (Map.Entry<Integer, Optional<StateUSA>> stateDate : state.getValue().entrySet()) {
+                System.out.println("\t" +stateDate.getKey());
+                System.out.println("\t\t" + stateDate.getValue().get().getStateName() + " " +
+                        stateDate.getValue().get().getMediumQuality() + " - " + stateDate.getValue().get().getDate());
+            }
 
-        System.out.println("\n>>>>>   Data states with LOW quality:    <<<<<\n");
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println("\n>>>>>   Data for states with LOW quality:    <<<<<\n");
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//        System.out.println("The best prices of low quality weed between all states:");
+//        List<StateUSA> lowBestPrice = weedStatisticsLowQuality.showBestPriceOfWeed(150);
+//        for (StateUSA state : lowBestPrice) {
+//            System.out.println(state.getStateName()+"\n\t"+state.getLowQuality()+" - "+state.getDate());
+//        }
+//        System.out.println("\nHistorically best low quality price for each state:");
+//        Map<String, Optional<StateUSA>> lowBestEachState = weedStatisticsLowQuality.historicallyBestPriceForEachState();
+//        for (Map.Entry<String,Optional<StateUSA>> state : lowBestEachState.entrySet()){
+//            System.out.println(state.getKey());
+//            System.out.println("\t"+state.getValue().get().getLowQuality()+" - "+state.getValue().get().getDate());
+//        }
+//        System.out.println("\nThe best prices of low quality weed between all states by year:");
+//        Map<Integer, Optional<StateUSA>> lowBestByYear = weedStatisticsLowQuality.bestPriceBetweenAllStatesByYear();
+//        for (Map.Entry<Integer,Optional<StateUSA>> state : lowBestByYear.entrySet()){
+//            System.out.println(state.getKey());
+//            System.out.println("\t"+state.getValue().get().getStateName()+" "+state.getValue().get().getLowQuality()+" - "+state.getValue().get().getDate());
+//        }
+        System.out.println("\nThe best prices of low quality weed between all states by a month:");
+        Map<Integer, Map<Integer, Optional<StateUSA>>> lowBestByMonth = weedStatisticsLowQuality.bestPriceBetweenAllStatesByMonth();
+        for (Map.Entry<Integer, Map<Integer, Optional<StateUSA>>> state : lowBestByMonth.entrySet()) {
+            System.out.println(state.getKey());
+            for (Map.Entry<Integer, Optional<StateUSA>> stateDate : state.getValue().entrySet()) {
+                System.out.println("\t" +stateDate.getKey());
+                System.out.println("\t\t" + stateDate.getValue().get().getStateName() + " " +
+                        stateDate.getValue().get().getLowQuality() + " - " + stateDate.getValue().get().getDate());
+            }
+
+        }
     }
 }
 //        1. Sprawdź, który stan ma ogółem najlepsze średnie ceny trawy. (ignoruj wpisy, dla których brakuje danych)

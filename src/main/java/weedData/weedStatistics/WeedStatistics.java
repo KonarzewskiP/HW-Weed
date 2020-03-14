@@ -9,6 +9,7 @@ import weedData.bestPriceWeedForEachState.BestPriceForEachStateInterface;
 import weedData.bestPricebyMonth.BestPriceByMonthBetweenAllStatesInterface;
 import weedData.priceListAndBestAveragePriceGenerator.PriceListAndBestAvgPriceInterface;
 import weedData.StateWithAvgPrices;
+import weedData.sortByDate.StatisticsSortedByDate;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -22,6 +23,7 @@ public abstract class WeedStatistics {
     BestPriceForEachStateInterface bestPriceForEachStateInterface;
     BestPriceByYearBetweenAllStatestInterface bestPriceByYearBetweenAllStatestInterface;
     BestPriceByMonthBetweenAllStatesInterface bestPriceByMonthBetweenAllStatesInterface;
+    StatisticsSortedByDate statisticsSortedByDate;
 
 //    public WeedStatistics(List<StateUSA> states) {
 //        this.statesUSA = states;
@@ -48,6 +50,10 @@ public abstract class WeedStatistics {
 
     public Map<Integer, Map<Integer, Optional<StateUSA>>> bestPriceBetweenAllStatesByMonth(){
         return bestPriceByMonthBetweenAllStatesInterface.bestPriceByMonth();
+    }
+
+    public List<StateUSA> sortedByDate(){
+        return statisticsSortedByDate.sortedByDate();
     }
 
 }

@@ -6,6 +6,7 @@ import weedData.bestPriceWeedBetweenAllStates.BestHighPrice;
 import weedData.bestPriceWeedForEachState.BestHighPriceEachState;
 import weedData.bestPricebyMonth.BestHighPriceByMonth;
 import weedData.priceListAndBestAveragePriceGenerator.AverageHighPriceList;
+import weedData.sortByDate.sortHighPriceByDate;
 
 import java.util.List;
 
@@ -16,6 +17,6 @@ public class WeedStatisticsHighPrice extends WeedStatistics{
         bestPriceForEachStateInterface = new BestHighPriceEachState(states);
         bestPriceByYearBetweenAllStatestInterface = new BestHighPriceByYear(states);
         bestPriceByMonthBetweenAllStatesInterface = new BestHighPriceByMonth(states);
-
+        statisticsSortedByDate= new sortHighPriceByDate(states);
     }
 }

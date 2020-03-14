@@ -1,23 +1,26 @@
-package weedData;
+package weedData.priceListGenerator;
 
-import lombok.Getter;
-import lombok.ToString;
+import weedData.StateUSA;
+import weedData.StateWithAvgPrices;
+import weedData.States;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-@Getter
-@ToString
-public class WeedStatistics {
+public class AverageAllPriceList implements PriceListGeneratorInterface {
     private final List<StateUSA> statesUSA;
 
-    public WeedStatistics(List<StateUSA> states) {
-        this.statesUSA = states;
+    public AverageAllPriceList(List<StateUSA> statesUSA) {
+        this.statesUSA = statesUSA;
     }
 
-    public Map<String, StateWithAvgPrices> statesWithAvgPricesList() {
+    @Override
+    public Map<String, StateWithAvgPrices> statesWithPricesList() {
         Map<String, StateWithAvgPrices> state = new HashMap<>();
         for (StateUSA s : statesUSA) {
             StateWithAvgPrices stateWithAvgPrices = new StateWithAvgPrices();
@@ -34,11 +37,26 @@ public class WeedStatistics {
         return state;
     }
 
+    @Override
+    public List<StateWithAvgPrices> sortedNumberStatesWithBestPrice(int number){
+        return statesWithPricesList()
+                .values()
+                .stream()
+                .sorted(new Comparator<StateWithAvgPrices>() {
+                    @Override
+                    public int compare(StateWithAvgPrices o1, StateWithAvgPrices o2) {
+                        return o1.getAverageTotal().compareTo(o2.getAverageTotal());
+                    }
+                })
+                .limit(number)
+                .collect(Collectors.toList());
+    }
+
     private BigDecimal avgHighPrice(States state) {
         double number = statesUSA.stream()
                 .filter(states1 -> states1.getStateAbbreviation() == state)
                 .collect(Collectors.averagingDouble(value ->value.getHighQuality().doubleValue()));
-        return new BigDecimal(number).setScale(2,RoundingMode.HALF_UP);
+        return new BigDecimal(number).setScale(2, RoundingMode.HALF_UP);
     }
     private BigDecimal avgMediumPrice(States state) {
         double number = statesUSA.stream()
@@ -52,28 +70,13 @@ public class WeedStatistics {
                 .collect(Collectors.averagingDouble(value ->value.getLowQuality().doubleValue()));
         return new BigDecimal(number).setScale(2,RoundingMode.HALF_UP);
     }
-
-    public Optional<StateWithAvgPrices> stateWithBestHighWeedPrice(){
-        Comparator<StateWithAvgPrices> stateWithHighAvgPricesComparator = Comparator.comparing(StateWithAvgPrices::getAvgHigh);
-        return  statesWithAvgPricesList()
+    public StateWithAvgPrices stateWithTheLowestAverageWeedPrice(){
+        return statesWithPricesList()
                 .values()
                 .stream()
-                .max(Comparator.comparing(StateWithAvgPrices -> StateWithAvgPrices.getAvgHigh().doubleValue()));
-
-//        public Optional<Map.Entry<String, StateWithAvgPrices>> stateWithBestHighWeedPrice(){
-//            Comparator<StateWithAvgPrices> stateWithHighAvgPricesComparator = Comparator.comparing(StateWithAvgPrices::getAvgHigh);
-//            return  statesWithAvgPricesList()
-//                    .entrySet()
-//                    .stream()
-//                    .max(Comparator.comparing(StateWithAvgPrices -> StateWithAvgPrices.getValue().getAvgHigh().doubleValue()));
-
-
+                .min(Comparator.comparing(stateWithAvgPrices -> stateWithAvgPrices.getAverageTotal().doubleValue()))
+                .get();
     }
+
 }
 
-//        1. Sprawdź, który stan ma ogółem najlepsze średnie ceny trawy. (ignoruj wpisy, dla których brakuje danych)
-//        2. Pokaż 5 najniższych cen wysokiej jakości palenia.
-//        3. Pokaż historycznie najlepszą cenę średniej jakości zielska dla każdego stanu.
-//        4. Na każdy możliwy rok pokaż stan, w którym dało się najtaniej kupić jakikolwiek towar.
-//        4*(dla ambitnych). To samo co wyżej tylko na każdy dostępny "rok-miesiąc"
-//        5. Posortuj wpisy latami.

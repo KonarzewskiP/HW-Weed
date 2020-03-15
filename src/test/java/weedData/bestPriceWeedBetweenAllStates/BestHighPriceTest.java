@@ -45,12 +45,13 @@ class BestHighPriceTest {
         BestHighPrice bestTest = new BestHighPrice(stateUSA);
         List<StateUSA> actual = bestTest.showBestPriceWeed(1);
         //then
-        assertThat(actual.size()).isEqualTo(9);
+        assertThat(actual.size()).isEqualTo(1);
 
 
         Assertions.assertEquals(actual
                 .stream()
                 .sorted()
+                .map(StateUSA::getHighQuality)
                 .findFirst(), Optional.of(new BigDecimal("1")), "Test no 1. Best High price between all states");
 
 

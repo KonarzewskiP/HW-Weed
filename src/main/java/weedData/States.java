@@ -1,6 +1,5 @@
 package weedData;
 
-
 import java.util.stream.Stream;
 
 public enum States {

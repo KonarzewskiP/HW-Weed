@@ -70,13 +70,6 @@ public class AverageAllPriceList implements PriceListAndBestAvgPriceInterface {
                 .collect(Collectors.averagingDouble(value ->value.getLowQuality().doubleValue()));
         return new BigDecimal(number).setScale(2,RoundingMode.HALF_UP);
     }
-    public StateWithAvgPrices stateWithTheLowestAverageWeedPrice(){
-        return statesWithAveragePricesList()
-                .values()
-                .stream()
-                .min(Comparator.comparing(stateWithAvgPrices -> stateWithAvgPrices.getAverageTotal().doubleValue()))
-                .get();
-    }
 
 }
 

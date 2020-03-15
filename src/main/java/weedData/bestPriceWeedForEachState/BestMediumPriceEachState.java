@@ -10,6 +10,7 @@ import java.util.Optional;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.minBy;
 
+
 public class BestMediumPriceEachState implements BestPriceForEachStateInterface {
     public final List<StateUSA> statesUSA;
 

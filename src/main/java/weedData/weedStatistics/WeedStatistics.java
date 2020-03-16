@@ -30,6 +30,8 @@ public abstract class WeedStatistics {
         return priceListAndBestAvgPriceInterface.statesWithAveragePricesList();
     }
 
+    // nazwa metody zaczyna sie od 'show', ale metoda nic nie pokazuje
+    // getBestAveragePrices byloby ok
     public List<StateWithAvgPrices> showBestAveragePrice(int number) {
         return priceListAndBestAvgPriceInterface.sortedNumberStatesWithBestPrice(number);
     }

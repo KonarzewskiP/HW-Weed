@@ -22,8 +22,8 @@ public class AverageMediumPriceList implements PriceListAndBestAvgPriceInterface
     public Map<String, StateWithAvgPrices> statesWithAveragePricesList() {
         Map<String, StateWithAvgPrices> state = new HashMap<>();
         for (StateUSA s : statesUSA) {
-            StateWithAvgPrices stateWithAvgPrices = new StateWithAvgPrices();
             BigDecimal averageMediumPrice = avgMediumPrice(s.getStateAbbreviation());
+            StateWithAvgPrices stateWithAvgPrices = new StateWithAvgPrices();
             stateWithAvgPrices.setAvgMedium(averageMediumPrice);
             stateWithAvgPrices.setName(s.getStateName());
             state.put(s.getStateName(), stateWithAvgPrices);
@@ -33,6 +33,7 @@ public class AverageMediumPriceList implements PriceListAndBestAvgPriceInterface
     private BigDecimal avgMediumPrice(States state) {
         double number = statesUSA.stream()
                 .filter(states1 -> states1.getStateAbbreviation() == state)
+                // nice
                 .collect(Collectors.averagingDouble(value -> value.getMediumQuality().doubleValue()));
         return new BigDecimal(number).setScale(2, RoundingMode.HALF_UP);
     }

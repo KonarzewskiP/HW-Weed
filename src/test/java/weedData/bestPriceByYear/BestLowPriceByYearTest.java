@@ -65,8 +65,10 @@ class BestLowPriceByYearTest {
         Assertions.assertEquals(actual
                 .values()
                 .stream()
-                .filter(stateUSA1 -> stateUSA1.get().getDate().getYear() == 2017)
-                .map(state -> state.get().getLowQuality())
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .filter(stateUSA1 -> stateUSA1.getDate().getYear() == 2017)
+                .map(StateUSA::getLowQuality)
                 .findFirst(), Optional.of(new BigDecimal("3")), "Test no 3.");
 
     }

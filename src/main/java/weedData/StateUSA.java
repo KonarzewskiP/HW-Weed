@@ -19,6 +19,8 @@ public class StateUSA implements Comparable<StateUSA> {
     private LocalDate date;
 
     private StateUSA(StateUSABuilder stateUSABuilder) {
+        // to powinno sie dziać w metodzie build() buildera
+        // StateUSA nie powinno o builderze nic wiedzieć
         this.stateName = stateUSABuilder.stateName;
         this.stateAbbreviation = stateUSABuilder.stateAbbreviation;
         this.highQuality = stateUSABuilder.highQuality;
@@ -44,6 +46,8 @@ public class StateUSA implements Comparable<StateUSA> {
         private BigDecimal lowQuality;
         private LocalDate date;
 
+        // Zazwyczaj metody buildera nazywaja sie with... albo po prostu tak jak zmienna
+        // W tym przypadku withStateName lub stateName
         public StateUSABuilder setStateName(String stateName) {
             this.stateName = stateName;
             return this;
@@ -77,8 +81,7 @@ public class StateUSA implements Comparable<StateUSA> {
         }
 
         public StateUSA build() {
-            StateUSA stateUSA = new StateUSA(this);
-            return stateUSA;
+            return new StateUSA(this);
         }
     }
 }

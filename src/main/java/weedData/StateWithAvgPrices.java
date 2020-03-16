@@ -17,10 +17,14 @@ public class StateWithAvgPrices {
     private BigDecimal avgLow;
     private BigDecimal averageTotal;
 
+    // Zamiast tej metody lepiej zawsze korzystać z metody average()
+    // Przyklad - po zmianie ktorejkolwiek sredniej, wartosc zmiennej
+    // averageTotal sie dezaktualizuje.
+    // Dlatego zamiast przypisywac, to lepiej wyliczac na biezaco
     public void setBestAvg(){
         this.averageTotal = average();
     }
     private BigDecimal average(){
-        return (avgHigh.add(avgMedium).add(avgLow)).divide(new BigDecimal(3),RoundingMode.DOWN);
+        return avgHigh.add(avgMedium).add(avgLow).divide(new BigDecimal(3),RoundingMode.DOWN);
     }
 }

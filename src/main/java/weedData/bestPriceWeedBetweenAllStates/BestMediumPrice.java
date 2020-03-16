@@ -17,12 +17,7 @@ public class BestMediumPrice implements BestPriceInterface {
     public List<StateUSA> showBestPriceWeed(int number) {
         return statesUSA
                 .stream()
-                .sorted(new Comparator<StateUSA>() {
-                    @Override
-                    public int compare(StateUSA o1, StateUSA o2) {
-                        return o1.getMediumQuality().compareTo(o2.getMediumQuality());
-                    }
-                })
+                .sorted(Comparator.comparing(StateUSA::getMediumQuality))
                 .limit(number)
                 .collect(Collectors.toList());
     }

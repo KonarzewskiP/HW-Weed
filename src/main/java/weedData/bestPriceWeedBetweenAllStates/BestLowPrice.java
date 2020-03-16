@@ -17,12 +17,7 @@ public class BestLowPrice implements BestPriceInterface {
     public List<StateUSA> showBestPriceWeed(int number) {
         return statesUSA
                 .stream()
-                .sorted(new Comparator<StateUSA>() {
-                    @Override
-                    public int compare(StateUSA o1, StateUSA o2) {
-                        return o1.getLowQuality().compareTo(o2.getLowQuality());
-                    }
-                })
+                .sorted(Comparator.comparing(StateUSA::getLowQuality))
                 .limit(number)
                 .collect(Collectors.toList());
     }

@@ -43,12 +43,7 @@ public class AverageLowPriceList implements PriceListAndBestAvgPriceInterface {
         return statesWithAveragePricesList()
                 .values()
                 .stream()
-                .sorted(new Comparator<StateWithAvgPrices>() {
-                    @Override
-                    public int compare(StateWithAvgPrices o1, StateWithAvgPrices o2) {
-                        return o1.getAvgLow().compareTo(o2.getAvgLow());
-                    }
-                })
+                .sorted(Comparator.comparing(StateWithAvgPrices::getAvgLow))
                 .limit(number)
                 .collect(Collectors.toList());
     }

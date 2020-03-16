@@ -42,12 +42,7 @@ public class AverageAllPriceList implements PriceListAndBestAvgPriceInterface {
         return statesWithAveragePricesList()
                 .values()
                 .stream()
-                .sorted(new Comparator<StateWithAvgPrices>() {
-                    @Override
-                    public int compare(StateWithAvgPrices o1, StateWithAvgPrices o2) {
-                        return o1.getAverageTotal().compareTo(o2.getAverageTotal());
-                    }
-                })
+                .sorted(Comparator.comparing(StateWithAvgPrices::getAverageTotal))
                 .limit(number)
                 .collect(Collectors.toList());
     }

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DataImporter {
-    private final StateMapper STATE_MAPPER = new StateMapper();
+    private static final StateMapper STATE_MAPPER = new StateMapper();
     private final String pathToFile;
 
     public DataImporter(String path) {
@@ -19,45 +19,41 @@ public class DataImporter {
     }
 
     public List<StateUSA> readStatesHighMediumLowQuality(){
-        List<StateUSA> collect = fileAsLine()
+        return fileAsLines()
                 .map(line -> line.split(","))
-                .map(state -> STATE_MAPPER.fromLineHighMedLowQuality(state))
-                .filter(stateUSA -> stateUSA.isPresent())
-                .map(stateUSA -> stateUSA.get())
+                .map(STATE_MAPPER::fromLineHighMedLowQuality)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
-        return collect;
     }
     public List<StateUSA> readStatesHighQuality(){
-        List<StateUSA> collect = fileAsLine()
+        return fileAsLines()
                 .map(line -> line.split(","))
-                .map(state -> STATE_MAPPER.fromLineHighQuality(state))
-                .filter(stateUSA -> stateUSA.isPresent())
-                .map(stateUSA -> stateUSA.get())
+                .map(STATE_MAPPER::fromLineHighQuality)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
-        return collect;
     }
 
     public List<StateUSA> readStatesMediumQuality(){
-        List<StateUSA> collect = fileAsLine()
+        return fileAsLines()
                 .map(line -> line.split(","))
-                .map(state -> STATE_MAPPER.fromLineMediumQuality(state))
-                .filter(stateUSA -> stateUSA.isPresent())
-                .map(stateUSA -> stateUSA.get())
+                .map(STATE_MAPPER::fromLineMediumQuality)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
-        return collect;
     }
 
     public List<StateUSA> readStatesLowQuality(){
-        List<StateUSA> collect = fileAsLine()
+        return fileAsLines()
                 .map(line -> line.split(","))
                 .map(STATE_MAPPER::fromLineLowQuality)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList());
-        return collect;
     }
 
-    private Stream<String > fileAsLine(){
+    private Stream<String> fileAsLines(){
         try{
             return Files.lines(Paths.get(pathToFile));
         } catch (IOException e) {

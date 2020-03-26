@@ -6,6 +6,7 @@ import weedData.States;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +23,8 @@ public class AverageMediumPriceList implements PriceListAndBestAvgPriceInterface
     public Map<String, StateWithAvgPrices> statesWithAveragePricesList() {
         Map<String, StateWithAvgPrices> state = new HashMap<>();
         for (StateUSA s : statesUSA) {
-            StateWithAvgPrices stateWithAvgPrices = new StateWithAvgPrices();
             BigDecimal averageMediumPrice = avgMediumPrice(s.getStateAbbreviation());
+            StateWithAvgPrices stateWithAvgPrices = new StateWithAvgPrices();
             stateWithAvgPrices.setAvgMedium(averageMediumPrice);
             stateWithAvgPrices.setName(s.getStateName());
             state.put(s.getStateName(), stateWithAvgPrices);
@@ -41,7 +42,7 @@ public class AverageMediumPriceList implements PriceListAndBestAvgPriceInterface
         return statesWithAveragePricesList()
                 .values()
                 .stream()
-                .sorted((o1, o2) -> o1.getAvgMedium().compareTo(o2.getAvgMedium()))
+                .sorted(Comparator.comparing(StateWithAvgPrices::getAvgMedium))
                 .limit(number)
                 .collect(Collectors.toList());
     }

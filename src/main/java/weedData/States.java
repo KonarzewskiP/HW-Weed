@@ -33,16 +33,7 @@ public enum States {
         this.name = name;
     }
 
-    public static String stateAsString(States statesName){
-        String s = Stream.of(values())
-                .filter(states -> states.equals(statesName))
-                .map(states -> states.name)
-                .findAny()
-                .orElse(States.UNKNOW.name);
-        return s;
-    }
-
-    public static States stateAbbrevation(String stateName){
+    public static States of(String stateName){
 
         //Imperative
 /*        for (States ab : States.values()){
@@ -54,11 +45,10 @@ public enum States {
             }
         }
         return States.UNKNOW;*/
-        States states1 = Stream.of(values())
+        return Stream.of(values())
                 .filter(states -> states.name.equals(stateName))
                 .findAny()
                 .orElse(States.UNKNOW);
-        return states1;
 
     }
 }

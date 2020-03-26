@@ -13,17 +13,16 @@ public class StateMapper {
 
     Optional<StateUSA> fromLineHighMedLowQuality(String[] fields) {
         try {
-            Optional<StateUSA> build = Optional.of(
+            return Optional.of(
                     StateUSA.builder()
-                            .setStateName(fields[0])
-                            .setStateAbbreviation(States.stateAbbrevation(fields[0]))
-                            .setHighQuality(new BigDecimal(fields[1]))
-                            .setMediumQuality(new BigDecimal(fields[3]))
-                            .setLowQuality(new BigDecimal(fields[5]))
-                            .setDate(fields[7])
+                            .withStateName(fields[0])
+                            .withStateAbbreviation(States.of(fields[0]))
+                            .withHighQuality(new BigDecimal(fields[1]))
+                            .withMediumQuality(new BigDecimal(fields[3]))
+                            .withLowQuality(new BigDecimal(fields[5]))
+                            .withDate(fields[7])
                             .build()
             );
-            return build;
         } catch (NumberFormatException number) {
             logger.log(Level.INFO, "State " + fields[0] + " has wrong data.");
         }
@@ -32,17 +31,16 @@ public class StateMapper {
 
     Optional<StateUSA> fromLineHighQuality(String[] fields) {
         try {
-            Optional<StateUSA> build = Optional.of(
+            return Optional.of(
                     StateUSA.builder()
-                            .setStateName(fields[0])
-                            .setStateAbbreviation(States.stateAbbrevation(fields[0]))
-                            .setHighQuality(new BigDecimal(fields[1]))
-//                            .setMediumQuality(new BigDecimal(fields[3]))
-//                            .setLowQuality(new BigDecimal(fields[5]))
-                            .setDate(fields[7])
+                            .withStateName(fields[0])
+                            .withStateAbbreviation(States.of(fields[0]))
+                            .withHighQuality(new BigDecimal(fields[1]))
+//                            .withMediumQuality(new BigDecimal(fields[3]))
+//                            .withLowQuality(new BigDecimal(fields[5]))
+                            .withDate(fields[7])
                             .build()
             );
-            return build;
         } catch (NumberFormatException number) {
             logger.log(Level.INFO, "State " + fields[0] + " has wrong data.");
         }
@@ -50,17 +48,16 @@ public class StateMapper {
     }
     Optional<StateUSA> fromLineMediumQuality(String[] fields) {
         try {
-            Optional<StateUSA> build = Optional.of(
+            return Optional.of(
                     StateUSA.builder()
-                            .setStateName(fields[0])
-                            .setStateAbbreviation(States.stateAbbrevation(fields[0]))
-//                            .setHighQuality(new BigDecimal(fields[1]))
-                            .setMediumQuality(new BigDecimal(fields[3]))
-//                            .setLowQuality(new BigDecimal(fields[5]))
-                            .setDate(fields[7])
+                            .withStateName(fields[0])
+                            .withStateAbbreviation(States.of(fields[0]))
+//                            .withHighQuality(new BigDecimal(fields[1]))
+                            .withMediumQuality(new BigDecimal(fields[3]))
+//                            .withLowQuality(new BigDecimal(fields[5]))
+                            .withDate(fields[7])
                             .build()
             );
-            return build;
         } catch (NumberFormatException number) {
             logger.log(Level.INFO, "State " + fields[0] + " has wrong data.");
         }
@@ -68,17 +65,16 @@ public class StateMapper {
     }
     Optional<StateUSA> fromLineLowQuality(String[] fields) {
         try {
-            Optional<StateUSA> build = Optional.of(
+            return Optional.of(
                     StateUSA.builder()
-                            .setStateName(fields[0])
-                            .setStateAbbreviation(States.stateAbbrevation(fields[0]))
-//                            .setHighQuality(new BigDecimal(fields[1]))
-//                            .setMediumQuality(new BigDecimal(fields[3]))
-                            .setLowQuality(new BigDecimal(fields[5]))
-                            .setDate(fields[7])
+                            .withStateName(fields[0])
+                            .withStateAbbreviation(States.of(fields[0]))
+//                            .withHighQuality(new BigDecimal(fields[1]))
+//                            .withMediumQuality(new BigDecimal(fields[3]))
+                            .withLowQuality(new BigDecimal(fields[5]))
+                            .withDate(fields[7])
                             .build()
             );
-            return build;
         } catch (NumberFormatException number) {
             logger.log(Level.INFO, "State " + fields[0] + " has wrong data.");
         }

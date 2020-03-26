@@ -18,15 +18,6 @@ public class StateUSA implements Comparable<StateUSA> {
     private BigDecimal lowQuality;
     private LocalDate date;
 
-    private StateUSA(StateUSABuilder stateUSABuilder) {
-        this.stateName = stateUSABuilder.stateName;
-        this.stateAbbreviation = stateUSABuilder.stateAbbreviation;
-        this.highQuality = stateUSABuilder.highQuality;
-        this.mediumQuality = stateUSABuilder.mediumQuality;
-        this.lowQuality = stateUSABuilder.lowQuality;
-        this.date = stateUSABuilder.date;
-    }
-
     public static StateUSABuilder builder() {
         return new StateUSABuilder();
     }
@@ -44,41 +35,49 @@ public class StateUSA implements Comparable<StateUSA> {
         private BigDecimal lowQuality;
         private LocalDate date;
 
-        public StateUSABuilder setStateName(String stateName) {
+        public StateUSA build() {
+            StateUSA newState = new StateUSA();
+            newState.stateName = this.stateName;
+            newState.stateAbbreviation = this.stateAbbreviation;
+            newState.highQuality = this.highQuality;
+            newState.mediumQuality = this.mediumQuality;
+            newState.lowQuality = this.lowQuality;
+            newState.date = this.date;
+
+            return newState;
+        }
+
+        public StateUSABuilder withStateName(String stateName) {
             this.stateName = stateName;
             return this;
         }
 
-        public StateUSABuilder setStateAbbreviation(States state) {
+        public StateUSABuilder withStateAbbreviation(States state) {
             this.stateAbbreviation = state;
             return this;
         }
 
-        public StateUSABuilder setHighQuality(BigDecimal highQuality) {
+        public StateUSABuilder withHighQuality(BigDecimal highQuality) {
             this.highQuality = highQuality;
             return this;
         }
 
-        public StateUSABuilder setMediumQuality(BigDecimal mediumQuality) {
+        public StateUSABuilder withMediumQuality(BigDecimal mediumQuality) {
             this.mediumQuality = mediumQuality;
             return this;
         }
 
-        public StateUSABuilder setLowQuality(BigDecimal lowQuality) {
+        public StateUSABuilder withLowQuality(BigDecimal lowQuality) {
             this.lowQuality = lowQuality;
             return this;
         }
 
-        public StateUSABuilder setDate(String date) {
+        public StateUSABuilder withDate(String date) {
             String[] dataSplit = date.split("-");
             this.date = LocalDate.of
-                    (Integer.parseInt(dataSplit[0]),Integer.parseInt(dataSplit[1]),Integer.parseInt(dataSplit[2]));
+                    (Integer.parseInt(dataSplit[0]), Integer.parseInt(dataSplit[1]), Integer.parseInt(dataSplit[2]));
             return this;
         }
 
-        public StateUSA build() {
-            StateUSA stateUSA = new StateUSA(this);
-            return stateUSA;
-        }
     }
 }

@@ -30,7 +30,7 @@ public abstract class WeedStatistics {
         return priceListAndBestAvgPriceInterface.statesWithAveragePricesList();
     }
 
-    public List<StateWithAvgPrices> showBestAveragePrice(int number) {
+    public List<StateWithAvgPrices> getBestAveragePrice(int number) {
         return priceListAndBestAvgPriceInterface.sortedNumberStatesWithBestPrice(number);
     }
     public List<StateUSA> showBestPriceOfWeed(int number){

@@ -15,12 +15,8 @@ public class StateWithAvgPrices {
     private BigDecimal avgHigh;
     private BigDecimal avgMedium;
     private BigDecimal avgLow;
-    private BigDecimal averageTotal;
 
-    public void setBestAvg(){
-        this.averageTotal = average();
-    }
-    private BigDecimal average(){
+    public BigDecimal average(){
         return (avgHigh.add(avgMedium).add(avgLow)).divide(new BigDecimal(3),RoundingMode.DOWN);
     }
 }

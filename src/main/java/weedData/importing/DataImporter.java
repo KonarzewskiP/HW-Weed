@@ -19,42 +19,38 @@ public class DataImporter {
     }
 
     public List<StateUSA> readStatesHighMediumLowQuality(){
-        List<StateUSA> collect = fileAsLine()
+        return fileAsLine()
                 .map(line -> line.split(","))
-                .map(state -> STATE_MAPPER.fromLineHighMedLowQuality(state))
-                .filter(stateUSA -> stateUSA.isPresent())
-                .map(stateUSA -> stateUSA.get())
+                .map(STATE_MAPPER::fromLineHighMedLowQuality)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
-        return collect;
     }
     public List<StateUSA> readStatesHighQuality(){
-        List<StateUSA> collect = fileAsLine()
+        return fileAsLine()
                 .map(line -> line.split(","))
-                .map(state -> STATE_MAPPER.fromLineHighQuality(state))
-                .filter(stateUSA -> stateUSA.isPresent())
-                .map(stateUSA -> stateUSA.get())
+                .map(STATE_MAPPER::fromLineHighQuality)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
-        return collect;
     }
 
     public List<StateUSA> readStatesMediumQuality(){
-        List<StateUSA> collect = fileAsLine()
+        return fileAsLine()
                 .map(line -> line.split(","))
-                .map(state -> STATE_MAPPER.fromLineMediumQuality(state))
-                .filter(stateUSA -> stateUSA.isPresent())
-                .map(stateUSA -> stateUSA.get())
+                .map(STATE_MAPPER::fromLineMediumQuality)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
-        return collect;
     }
 
     public List<StateUSA> readStatesLowQuality(){
-        List<StateUSA> collect = fileAsLine()
+        return fileAsLine()
                 .map(line -> line.split(","))
                 .map(STATE_MAPPER::fromLineLowQuality)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList());
-        return collect;
     }
 
     private Stream<String > fileAsLine(){

@@ -11,7 +11,7 @@ import java.util.Optional;
 public class Main {
     public static void main(String[] args) {
 
-        DataImporter dataImporter = new DataImporter("src\\main\\resources\\marijuana-street-price-clean.csv");
+        DataImporter dataImporter = new DataImporter("src/main/resources/marijuana-street-price-clean.csv");
         WeedStatistics weedStatisticsHighMedLowQuality = new WeedStatisticsHighMediumLowPrice(dataImporter.readStatesHighMediumLowQuality());
         WeedStatistics weedStatisticsHighQuality = new WeedStatisticsHighPrice(dataImporter.readStatesHighQuality());
         WeedStatistics weedStatisticsMedQuality = new WeedStatisticsMediumPrice(dataImporter.readStatesMediumQuality());
@@ -21,11 +21,15 @@ public class Main {
         System.out.println("\n>>>>>   Data for states with HIGH MEDIUM and LOW quality:    <<<<<\n");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        System.out.println("\nEx.1 - 5 States with the lowest average weed price of all time:");
-        List<StateWithAvgPrices> lowestAveragePriceOfAllTime = weedStatisticsHighMedLowQuality.showBestAveragePrice(5);
-        for (StateWithAvgPrices state : lowestAveragePriceOfAllTime) {
-            System.out.println(state.getName() + "\n\t" + state.getAverageTotal());
-        }
+//        System.out.println("\nEx.1 - 5 States with the lowest average weed price of all time:");
+//        List<StateWithAvgPrices> lowestAveragePriceOfAllTime = weedStatisticsHighMedLowQuality.showBestAveragePrice(5);
+//        for (StateWithAvgPrices state : lowestAveragePriceOfAllTime) {
+//            System.out.println(state.getName() + "\n\t" + state.average());
+//        }
+
+        System.out.println("\nThrow exception");
+        Map<Integer, Map<Integer, Optional<StateUSA>>> lowestAveragePriceOfAllTime = weedStatisticsHighMedLowQuality.bestPriceBetweenAllStatesByMonth();
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         System.out.println("\n>>>>>   Data for states with HIGH quality:  <<<<<\n");
@@ -59,11 +63,11 @@ public class Main {
 //                        stateDate.getValue().get().getHighQuality() + " - " + stateDate.getValue().get().getDate());
 //            }
 //        }
-        System.out.println("\nEx.5 - High quality weed sorted by a date:".toUpperCase());
-        List<StateUSA> highBestPriceSorted = weedStatisticsHighQuality.sortedByDate();
-        for (StateUSA state : highBestPriceSorted) {
-            System.out.println(state.getStateName() + "\n\t" + state.getHighQuality() + " - " + state.getDate());
-        }
+//        System.out.println("\nEx.5 - High quality weed sorted by a date:".toUpperCase());
+//        List<StateUSA> highBestPriceSorted = weedStatisticsHighQuality.sortedByDate();
+//        for (StateUSA state : highBestPriceSorted) {
+//            System.out.println(state.getStateName() + "\n\t" + state.getHighQuality() + " - " + state.getDate());
+//        }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         System.out.println("\n>>>>>   Data for states with MEDIUM quality:    <<<<<\n");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,11 +117,11 @@ public class Main {
 //            System.out.println("\t"+state.getValue().get().getLowQuality()+" - "+state.getValue().get().getDate());
 //        }
         System.out.println("\nEx.4 - The best prices of low quality weed between all states by year:".toUpperCase());
-        Map<Integer, Optional<StateUSA>> lowBestByYear = weedStatisticsLowQuality.bestPriceBetweenAllStatesByYear();
-        for (Map.Entry<Integer, Optional<StateUSA>> state : lowBestByYear.entrySet()) {
-            System.out.println(state.getKey());
-            System.out.println("\t" + state.getValue().get().getStateName() + " " + state.getValue().get().getLowQuality() + " - " + state.getValue().get().getDate());
-        }
+//        Map<Integer, Optional<StateUSA>> lowBestByYear = weedStatisticsLowQuality.bestPriceBetweenAllStatesByYear();
+//        for (Map.Entry<Integer, Optional<StateUSA>> state : lowBestByYear.entrySet()) {
+//            System.out.println(state.getKey());
+//            System.out.println("\t" + state.getValue().get().getStateName() + " " + state.getValue().get().getLowQuality() + " - " + state.getValue().get().getDate());
+//        }
         System.out.println("\nEx.5 - High quality weed sorted by a date:".toUpperCase());
 //        List<StateUSA> lowBestPriceSorted = weedStatisticsLowQuality.sortedByDate();
 //        for (StateUSA state : lowBestPriceSorted) {

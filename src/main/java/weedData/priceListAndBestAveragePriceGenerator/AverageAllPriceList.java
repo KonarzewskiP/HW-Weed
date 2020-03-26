@@ -23,15 +23,14 @@ public class AverageAllPriceList implements PriceListAndBestAvgPriceInterface {
     public Map<String, StateWithAvgPrices> statesWithAveragePricesList() {
         Map<String, StateWithAvgPrices> state = new HashMap<>();
         for (StateUSA s : statesUSA) {
-            StateWithAvgPrices stateWithAvgPrices = new StateWithAvgPrices();
             BigDecimal averageHighPrice = avgHighPrice(s.getStateAbbreviation());
             BigDecimal averageMediumPrice = avgMediumPrice(s.getStateAbbreviation());
             BigDecimal averageLowPrice = avgLowPrice(s.getStateAbbreviation());
+            StateWithAvgPrices stateWithAvgPrices = new StateWithAvgPrices();
             stateWithAvgPrices.setAvgHigh(averageHighPrice);
             stateWithAvgPrices.setAvgMedium(averageMediumPrice);
             stateWithAvgPrices.setAvgLow(averageLowPrice);
             stateWithAvgPrices.setName(s.getStateName());
-            stateWithAvgPrices.setBestAvg();
             state.put(s.getStateName(), stateWithAvgPrices);
         }
         return state;
@@ -42,12 +41,7 @@ public class AverageAllPriceList implements PriceListAndBestAvgPriceInterface {
         return statesWithAveragePricesList()
                 .values()
                 .stream()
-                .sorted(new Comparator<StateWithAvgPrices>() {
-                    @Override
-                    public int compare(StateWithAvgPrices o1, StateWithAvgPrices o2) {
-                        return o1.getAverageTotal().compareTo(o2.getAverageTotal());
-                    }
-                })
+                .sorted(Comparator.comparing(StateWithAvgPrices::average))
                 .limit(number)
                 .collect(Collectors.toList());
     }

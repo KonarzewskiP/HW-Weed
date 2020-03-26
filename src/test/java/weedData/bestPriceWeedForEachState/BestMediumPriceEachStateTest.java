@@ -20,26 +20,17 @@ class BestMediumPriceEachStateTest {
     @Test
     void bestPriceForEachState() {
         //given
-        List<StateUSA> stateUSA = new ArrayList<>();
-        StateUSA record1 = new StateUSA("Alabama", States.AL, new BigDecimal("1"), new BigDecimal("20"), new BigDecimal("10"), LocalDate.of(2014, 8, 1));
-        StateUSA record2 = new StateUSA("New York", States.NY, new BigDecimal("11"), new BigDecimal("21"), new BigDecimal("32"), LocalDate.of(2014, 8, 28));
-        StateUSA record3 = new StateUSA("Florida", States.FL, new BigDecimal("15"), new BigDecimal("30"), new BigDecimal("24"), LocalDate.of(2014, 8, 4));
-        StateUSA record4 = new StateUSA("Alabama", States.AL, new BigDecimal("60"), new BigDecimal("13"), new BigDecimal("40"), LocalDate.of(2014, 7, 5));
-        StateUSA record5 = new StateUSA("New York", States.NY, new BigDecimal("40"), new BigDecimal("2"), new BigDecimal("60"), LocalDate.of(2014, 7, 6));
-        StateUSA record6 = new StateUSA("Florida", States.FL, new BigDecimal("40"), new BigDecimal("20"), new BigDecimal("60"), LocalDate.of(2014, 7, 6));
-        StateUSA record7 = new StateUSA("New York", States.NY, new BigDecimal("50"), new BigDecimal("60"), new BigDecimal("31"), LocalDate.of(2017, 4, 4));
-        StateUSA record8 = new StateUSA("Alabama", States.AL, new BigDecimal("50"), new BigDecimal("60"), new BigDecimal("30"), LocalDate.of(2017, 4, 4));
-        StateUSA record9 = new StateUSA("Florida", States.FL, new BigDecimal("50"), new BigDecimal("15"), new BigDecimal("3"), LocalDate.of(2017, 4, 4));
-
-        stateUSA.add(record1);
-        stateUSA.add(record2);
-        stateUSA.add(record3);
-        stateUSA.add(record4);
-        stateUSA.add(record5);
-        stateUSA.add(record6);
-        stateUSA.add(record7);
-        stateUSA.add(record8);
-        stateUSA.add(record9);
+        List<StateUSA> stateUSA = List.of(
+        new StateUSA("Alabama", States.AL, new BigDecimal("1"), new BigDecimal("20"), new BigDecimal("10"), LocalDate.of(2014, 8, 1)),
+        new StateUSA("New York", States.NY, new BigDecimal("11"), new BigDecimal("21"), new BigDecimal("32"), LocalDate.of(2014, 8, 28)),
+        new StateUSA("Florida", States.FL, new BigDecimal("15"), new BigDecimal("30"), new BigDecimal("24"), LocalDate.of(2014, 8, 4)),
+        new StateUSA("Alabama", States.AL, new BigDecimal("60"), new BigDecimal("13"), new BigDecimal("40"), LocalDate.of(2014, 7, 5)),
+        new StateUSA("New York", States.NY, new BigDecimal("40"), new BigDecimal("2"), new BigDecimal("60"), LocalDate.of(2014, 7, 6)),
+        new StateUSA("Florida", States.FL, new BigDecimal("40"), new BigDecimal("20"), new BigDecimal("60"), LocalDate.of(2014, 7, 6)),
+        new StateUSA("New York", States.NY, new BigDecimal("50"), new BigDecimal("60"), new BigDecimal("31"), LocalDate.of(2017, 4, 4)),
+        new StateUSA("Alabama", States.AL, new BigDecimal("50"), new BigDecimal("60"), new BigDecimal("30"), LocalDate.of(2017, 4, 4)),
+        new StateUSA("Florida", States.FL, new BigDecimal("50"), new BigDecimal("15"), new BigDecimal("3"), LocalDate.of(2017, 4, 4))
+        );
         //when
         BestMediumPriceEachState bestTest = new BestMediumPriceEachState(stateUSA);
         Map<String, Optional<StateUSA>> actual = bestTest.bestPriceForEachState();
@@ -50,29 +41,37 @@ class BestMediumPriceEachStateTest {
         Assertions.assertEquals(actual
                 .values()
                 .stream()
-                .map(stateUSA1 -> stateUSA1.get().getMediumQuality())
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(StateUSA::getMediumQuality)
                 .sorted()
                 .findFirst(), Optional.of(new BigDecimal("2")), "Test no 1.");
 
         Assertions.assertEquals(actual
                 .values()
                 .stream()
-                .filter(stateUSA1 -> stateUSA1.get().getStateName().equals("Alabama"))
-                .map(state -> state.get().getMediumQuality())
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .filter(stateUSA1 -> stateUSA1.getStateName().equals("Alabama"))
+                .map(StateUSA::getMediumQuality)
                 .findFirst(),Optional.of(new BigDecimal("13")),"Test no 2. for Alabama");
 
         Assertions.assertEquals(actual
                 .values()
                 .stream()
-                .filter(stateUSA1 -> stateUSA1.get().getStateName().equals("New York"))
-                .map(state -> state.get().getMediumQuality())
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .filter(stateUSA1 -> stateUSA1.getStateName().equals("New York"))
+                .map(StateUSA::getMediumQuality)
                 .findFirst(),Optional.of(new BigDecimal("2")),"Test no 2. for New York");
 
         Assertions.assertEquals(actual
                 .values()
                 .stream()
-                .filter(stateUSA1 -> stateUSA1.get().getStateName().equals("Florida"))
-                .map(state -> state.get().getMediumQuality())
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .filter(stateUSA1 -> stateUSA1.getStateName().equals("Florida"))
+                .map(StateUSA::getMediumQuality)
                 .findFirst(),Optional.of(new BigDecimal("15")),"Test no 2. for Florida");
 
 

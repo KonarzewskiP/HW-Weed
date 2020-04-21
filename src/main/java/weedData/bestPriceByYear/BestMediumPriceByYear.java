@@ -22,7 +22,9 @@ public class BestMediumPriceByYear implements BestPriceByYearBetweenAllStatestIn
     public Map<Integer, Optional<StateUSA>> bestPriceByYear() {
         return statesUSA
                 .stream()
-                .collect(groupingBy(stateUSA -> stateUSA.getDate().getYear(),minBy(Comparator.comparing(StateUSA::getMediumQuality))));
+                .collect(groupingBy(stateUSA -> stateUSA.getDate()
+                        .getYear(),
+                        minBy(Comparator.comparing(StateUSA::getMediumQuality))));
     }
     }
 

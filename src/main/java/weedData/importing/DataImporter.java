@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class DataImporter {
+public class  DataImporter {
     private final StateMapper STATE_MAPPER = new StateMapper();
     private final String pathToFile;
 

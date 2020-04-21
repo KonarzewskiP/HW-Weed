@@ -140,9 +140,16 @@ public class Main {
 //        }
     }
 }
+//    Wczytaj dane o średnich cenach marihuany w danym stanie USA, w danym miesiącu.
+//        Do wyboru: format JSON lub CSV.
 //        1. Sprawdź, który stan ma ogółem najlepsze średnie ceny trawy. (ignoruj wpisy, dla których brakuje danych)
 //        2. Pokaż 5 najniższych cen wysokiej jakości palenia.
 //        3. Pokaż historycznie najlepszą cenę średniej jakości zielska dla każdego stanu.
 //        4. Na każdy możliwy rok pokaż stan, w którym dało się najtaniej kupić jakikolwiek towar.
 //        4*(dla ambitnych). To samo co wyżej tylko na każdy dostępny "rok-miesiąc"
 //        5. Posortuj wpisy latami.
+//        UWAGI:
+//        - Niektórych wartości może brakować!
+//        - Do przechowywania cen używaj BigDecimal
+//        - Pamiętaj o testach
+//        - W mainie tylko wypisujemy, reszta dzieje się w klasach
